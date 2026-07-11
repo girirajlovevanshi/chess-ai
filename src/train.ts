@@ -85,7 +85,7 @@ async function runTraining() {
 
     // model.fit() is where the actual learning happens
     await model.fit(inputTensor, targetTensor, {
-        epochs: 20,           // How many times it reads the entire dataset
+        epochs: 10,           // How many times it reads the entire dataset
         batchSize: 64,        // How many examples it looks at simultaneously
         shuffle: true,        // Mixes up the games so it doesn't memorize them in order
         callbacks: {

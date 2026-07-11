@@ -227,22 +227,26 @@ async function generateDataset(numGames: number = 3) {
     }
 
     // Inject conversational training rows directly into the dataset
-    console.log("Adding conversational personality data...");
-    const languages = ['<EN>', '<HI>'];
-    for (const lang of languages) {
-        const langKey = lang === '<EN>' ? 'en' : 'hi';
+    console.log("Adding conversational personality data (amplified for balance)...");
+    const languages = ['', ''];
 
-        for (const phrase of templates[langKey].greeting) {
-            dataset.push({
-                input: tokenizer.encode(`${lang} [SITUATION:GREETING]`),
-                target: tokenizer.encode(`<START> ${phrase} <END>`)
-            });
-        }
-        for (const phrase of templates[langKey].identity) {
-            dataset.push({
-                input: tokenizer.encode(`${lang} [SITUATION:IDENTITY]`),
-                target: tokenizer.encode(`<START> ${phrase} <END>`)
-            });
+    // Loop 100 times to give greetings equal weight in the AI's brain!
+    for (let i = 0; i < 100; i++) {
+        for (const lang of languages) {
+            const langKey = lang === '' ? 'en' : 'hi';
+
+            for (const phrase of templates[langKey].greeting) {
+                dataset.push({
+                    input: tokenizer.encode(`${lang} [SITUATION:GREETING]`),
+                    target: tokenizer.encode(` ${phrase} `)
+                });
+            }
+            for (const phrase of templates[langKey].identity) {
+                dataset.push({
+                    input: tokenizer.encode(`${lang} [SITUATION:IDENTITY]`),
+                    target: tokenizer.encode(` ${phrase} `)
+                });
+            }
         }
     }
 
