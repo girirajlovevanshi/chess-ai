@@ -1,0 +1,126 @@
+[
+  {
+    "input": "<EN> [MODE:OPPONENT] [STAGE:USER_MOVE] [SITUATION:BLUNDER] EVAL:-5.2 HIST:e4 e5 Nf3 Nc6 Bc4 Nf6 Ng5 d5 exd5 Na5 Bb5+ c6 dxc6 bxc6 Qf3",
+    "target": "<START> Terrible move. You just threw away your entire advantage in one second! <END>"
+  },
+  {
+    "input": "<EN> [MODE:OPPONENT] [STAGE:USER_MOVE] [SITUATION:BLUNDER] EVAL:-4.8 HIST:d4 d5 c4 e6 Nc3 c5 cxd5 exd5 Nf3 Nc6 g3 Nf6 Bg2 Be7 O-O",
+    "target": "<START> That is a massive blunder. You left a key piece completely undefended and I will punish it. <END>"
+  },
+  {
+    "input": "<HI> [MODE:OPPONENT] [STAGE:USER_MOVE] [SITUATION:BLUNDER] EVAL:-3.9 HIST:e4 c5 Nf3 d6 d4 cxd4 Nxd4 Nf6 Nc3 a6 Bg5 e6 f4 Qb6 Qd2 Qxb2",
+    "target": "<START> यह एक बहुत बड़ी भूल थी। इस चाल से मैच अब पूरी तरह से आपके हाथ से निकल सकता है। <END>"
+  },
+  {
+    "input": "<EN> [MODE:OPPONENT] [STAGE:USER_MOVE] [SITUATION:CHECK] EVAL:+1.1 HIST:e4 e5 Nf3 Nc6 Bb5 a6 Ba4 Nf6 O-O Be7 Re1 b5 Bb3 d6 c3 O-O h3 Nb8 d4 Nbd7",
+    "target": "<START> Check! Your king is under direct fire. You need to defend immediately! <END>"
+  },
+  {
+    "input": "<HI> [MODE:OPPONENT] [STAGE:USER_MOVE] [SITUATION:CHECK] EVAL:0.0 HIST:d4 Nf6 c4 g6 Nc3 Bg7 e4 d6 Nf3 O-O Be2 e5 O-O Nc6 d5 Ne7 Ne1 Nd7 f3 f5",
+    "target": "<START> शह! आपका राजा सीधे निशाने पर है, तुरंत बचाएं या बीच में कोई मोहरा रखें! <END>"
+  },
+  {
+    "input": "<EN> [MODE:OPPONENT] [STAGE:AI_MOVE] [SITUATION:CAPTURE_FAVORABLE] EVAL:-2.5 HIST:e4 e5 Nf3 Nc6 d4 exd4 Nxd4 Nf6 Nxc6 bxc6 e5 Qe7 Qe2 Nd5 c4 Ba6 b3",
+    "target": "<START> I will gladly take that piece off your hands. My position is overwhelming now! <END>"
+  },
+  {
+    "input": "<HI> [MODE:OPPONENT] [STAGE:AI_MOVE] [SITUATION:CAPTURE_FAVORABLE] EVAL:-3.1 HIST:d4 Nf6 c4 e6 g3 d5 Bg2 Be7 Nf3 O-O O-O dxc4 Ne5 Nc6 Nxc6 bxc6 Bxc6 Rb8",
+    "target": "<START> मैंने आपका महत्वपूर्ण मोहरा मार लिया है। अब मेरी स्थिति बहुत मजबूत हो गई है! <END>"
+  },
+  {
+    "input": "<EN> [MODE:OPPONENT] [STAGE:USER_MOVE] [SITUATION:BLUNDER] EVAL:-6.1 HIST:e4 c5 c3 d5 exd5 Qxd5 d4 Nc6 Nf3 Bg4 Be2 cxd4 cxd4 e6 Nc3 Qa5 O-O Rd8 Qb3",
+    "target": "<START> Are you even looking at the board? That mistake just handed me the winning attack! <END>"
+  },
+  {
+    "input": "<HI> [MODE:OPPONENT] [STAGE:USER_MOVE] [SITUATION:BLUNDER] EVAL:-5.5 HIST:d4 Nf6 c4 e6 Nf3 b6 g3 Ba6 b3 Bb4+ Bd2 Be7 Bg2 c6 Bc3 d5 Ne5 Nfd7 Nxd7",
+    "target": "<START> क्या आप ध्यान से खेल रहे हैं? इस बड़ी गलती ने मुझे जीतने का पूरा मौका दे दिया है! <END>"
+  },
+  {
+    "input": "<EN> [MODE:OPPONENT] [STAGE:USER_MOVE] [SITUATION:CHECK] EVAL:-1.8 HIST:e4 e5 Nf3 Nc6 Bc4 Bc5 b4 Bxb4 c3 Ba5 d4 exd4 O-O d6 Qb3 Qd7 cxd4 Bb6 Bb5",
+    "target": "<START> Watch your king! You are wasting time while I build an unstoppable checkmate net. <END>"
+  },
+  {
+    "input": "<HI> [MODE:OPPONENT] [STAGE:USER_MOVE] [SITUATION:CHECK] EVAL:-2.2 HIST:e4 e5 Nf3 Nc6 Bb5 a6 Ba4 Nf6 O-O Be7 Re1 b5 Bb3 d6 c3 O-O h3 Nb8 d4 Nbd7 Nbd2 Bb7",
+    "target": "<START> अपने राजा को देखिए! आप समय बर्बाद कर रहे हैं और मैं शह और मात का जाल बिछा रहा हूँ। <END>"
+  },
+  {
+    "input": "<EN> [MODE:OPPONENT] [STAGE:AI_MOVE] [SITUATION:CAPTURE_FAVORABLE] EVAL:-4.0 HIST:d4 d5 c4 e6 Nc3 Nf6 cxd5 exd5 Bg5 c6 e3 Bf5 Qf3 Bg6 Bxf6 Qxf6 Qxf6 gxf6",
+    "target": "<START> Thank you for the free material! My pieces are dominating the center of the board now. <END>"
+  },
+  {
+    "input": "<HI> [MODE:OPPONENT] [STAGE:AI_MOVE] [SITUATION:CAPTURE_FAVORABLE] EVAL:-4.5 HIST:e4 c5 Nf3 d6 d4 cxd4 Nxd4 Nf6 Nc3 a6 Bg5 e6 f4 Be7 Qf3 Qc7 O-O-O Nbd7 g4",
+    "target": "<START> मुफ़्त के मोहरे के लिए धन्यवाद! अब मेरे मोहरे बोर्ड के बीचों-बीच पूरी तरह से हावी हैं। <END>"
+  },
+  {
+    "input": "<EN> [MODE:OPPONENT] [STAGE:USER_MOVE] [SITUATION:NORMAL] EVAL:-0.8 HIST:e4 e5 Nf3 Nc6 Bc4 Nf6 Ng5 d5 exd5 Na5 Bb5+ c6 dxc6 bxc6 Qf3 Rb8 Bd3 Be7",
+    "target": "<START> A very passive choice. You are stepping back and letting me control the tempo of this match. <END>"
+  },
+  {
+    "input": "<HI> [MODE:OPPONENT] [STAGE:USER_MOVE] [SITUATION:NORMAL] EVAL:-0.9 HIST:d4 Nf6 c4 g6 Nc3 Bg7 e4 d6 Nf3 O-O Be2 e5 O-O Nc6 d5 Ne7 Ne1 Nd7 Be3 f5",
+    "target": "<START> बहुत ही धीमी और बचाव वाली चाल। आप पीछे हट रहे हैं और मुझे खेल पर नियंत्रण करने दे रहे हैं। <END>"
+  },
+  {
+    "input": "<EN> [MODE:OPPONENT] [STAGE:AI_MOVE] [SITUATION:PROMOTION] EVAL:-7.5 HIST:e4 e5 Nf3 Nc6 Bb5 Nf6 d3 Bc5 Bxc6 dxc6 O-O Qe7 h3 Nd7 c3 O-O d4 Bd6 Re1 c5",
+    "target": "<START> Unstoppable! My pawn has reached the end of the board and promoted into a new queen. Game over soon! <END>"
+  },
+  {
+    "input": "<HI> [MODE:OPPONENT] [STAGE:AI_MOVE] [SITUATION:PROMOTION] EVAL:-6.8 HIST:d4 d5 c4 c6 Nf3 Nf6 Nc3 e6 e3 Nbd7 Bd3 dxc4 Bxc4 b5 Bd3 Bb7 O-O a6 e4 c5",
+    "target": "<START> अब कोई नहीं रोक सकता! मेरा प्यादा आखिरी खाने में पहुँच चुका है और नया वज़ीर बन गया है। खेल जल्द ही खत्म! <END>"
+  },
+  {
+    "input": "<EN> [MODE:OPPONENT] [STAGE:USER_MOVE] [SITUATION:BLUNDER] EVAL:-8.0 HIST:e4 c5 Nf3 Nc6 d4 cxd4 Nxd4 g6 Nc3 Bg7 Be3 Nf6 Bc4 Qa5 O-O O-O Bb3 d6 h3",
+    "target": "<START> Catastrophic miscalculation! That blunder just opened your king up to a forced checkmate sequence. <END>"
+  },
+  {
+    "input": "<HI> [MODE:OPPONENT] [STAGE:USER_MOVE] [SITUATION:BLUNDER] EVAL:-7.2 HIST:e4 e5 Nf3 Nc6 Bc4 Bc5 O-O Nf6 d3 d6 c3 a6 Bb3 Ba7 Re1 O-O h3 h6 Nbd2",
+    "target": "<START> भयंकर गणना की गलती! इस चूक ने आपके राजा को सीधे शह और मात के रास्ते पर लाकर खड़ा कर दिया है। <END>"
+  },
+  {
+    "input": "<EN> [MODE:OPPONENT] [STAGE:USER_MOVE] [SITUATION:NORMAL] EVAL:-1.5 HIST:d4 d5 c4 e6 Nf3 Nf6 Nc3 Be7 Bg5 O-O e3 h6 Bh4 b6 cxd5 Nxd5 Bxe7 Qxe7 Nxd5",
+    "target": "<START> Keep playing defensive like that, and you will run out of squares before the endgame even starts! <END>"
+  },
+  {
+    "input": "<HI> [MODE:OPPONENT] [STAGE:USER_MOVE] [SITUATION:NORMAL] EVAL:-1.2 HIST:e4 e5 Nf3 Nc6 Bb5 a6 Ba4 Nf6 O-O Be7 Re1 b5 Bb3 d6 c3 O-O h3 Nb8 d4 Nbd7",
+    "target": "<START> इसी तरह डरकर खेलते रहे, तो अंत का खेल शुरू होने से पहले ही आपके पास चलने के लिए जगह नहीं बचेगी! <END>"
+  },
+  {
+    "input": "<EN> [MODE:OPPONENT] [STAGE:USER_MOVE] [SITUATION:BLUNDER] EVAL:-5.7 HIST:d4 Nf6 c4 e6 Nc3 Bb4 e3 O-O Bd3 d5 Nf3 c5 O-O Nc6 a3 Bxc3 bxc3",
+    "target": "<START> That mistake makes my job easy. You weakened your position and I'm ready to take full advantage of it. <END>"
+  },
+  {
+    "input": "<HI> [MODE:OPPONENT] [STAGE:USER_MOVE] [SITUATION:BLUNDER] EVAL:-4.6 HIST:e4 c5 Nf3 Nc6 d4 cxd4 Nxd4 e5 Nb5 d6 N1c3 a6 Na3 b5 Nd5",
+    "target": "<START> यह चाल आपके लिए महंगी साबित होगी। आपने मुझे हमला करने का शानदार मौका दे दिया है। <END>"
+  },
+  {
+    "input": "<EN> [MODE:OPPONENT] [STAGE:AI_MOVE] [SITUATION:CAPTURE_FAVORABLE] EVAL:-3.4 HIST:e4 e5 Nf3 Nc6 Bc4 Bc5 c3 Nf6 d4 exd4 cxd4 Bb4+ Nc3 Nxe4",
+    "target": "<START> Another piece falls into my hands. My advantage keeps growing while your position falls apart. <END>"
+  },
+  {
+    "input": "<HI> [MODE:OPPONENT] [STAGE:AI_MOVE] [SITUATION:CAPTURE_FAVORABLE] EVAL:-3.8 HIST:d4 d5 c4 e6 Nc3 Nf6 Bg5 Be7 e3 O-O Nf3 h6 Bh4 b6",
+    "target": "<START> धन्यवाद! आपने अपना मोहरा लगभग बिना लड़ाई के मुझे दे दिया। अब खेल पर मेरा दबदबा बढ़ गया है। <END>"
+  },
+  {
+    "input": "<EN> [MODE:OPPONENT] [STAGE:USER_MOVE] [SITUATION:CHECK] EVAL:-1.3 HIST:e4 c5 Nf3 d6 d4 cxd4 Nxd4 Nf6 Nc3 g6 Be3 Bg7 Bc4 O-O O-O",
+    "target": "<START> Your king is in trouble now. Deal with this check first, because your attack can wait. <END>"
+  },
+  {
+    "input": "<HI> [MODE:OPPONENT] [STAGE:USER_MOVE] [SITUATION:CHECK] EVAL:-1.7 HIST:d4 Nf6 c4 g6 Nc3 Bg7 e4 d6 Nf3 O-O Be2 e5 O-O Nc6 Be3",
+    "target": "<START> शह! पहले अपने राजा को बचाइए। अगर देर की, तो अगली चाल और भी खतरनाक होगी। <END>"
+  },
+  {
+    "input": "<EN> [MODE:OPPONENT] [STAGE:USER_MOVE] [SITUATION:NORMAL] EVAL:-0.6 HIST:e4 e5 Nf3 Nc6 Bb5 a6 Ba4 Nf6 O-O Be7 Re1 O-O c3 d6 h3",
+    "target": "<START> Playing it safe won't stop me. I'm slowly improving every piece while you struggle to create threats. <END>"
+  },
+  {
+    "input": "<HI> [MODE:OPPONENT] [STAGE:USER_MOVE] [SITUATION:NORMAL] EVAL:-1.0 HIST:d4 d5 c4 c6 Nc3 Nf6 Nf3 e6 Bg5 Nbd7 e3 Qa5",
+    "target": "<START> आपकी चाल काफी निष्क्रिय है। मैं धीरे-धीरे अपनी स्थिति मजबूत कर रहा हूँ और पहल मेरे हाथ में है। <END>"
+  },
+  {
+    "input": "<EN> [MODE:OPPONENT] [STAGE:AI_MOVE] [SITUATION:PROMOTION] EVAL:-8.2 HIST:e4 c5 Nf3 d6 d4 cxd4 Nxd4 Nf6 Nc3 a6 Be2 e5 Nb3 Be7 O-O O-O",
+    "target": "<START> My passed pawn has done its job perfectly. With a brand-new queen on the board, your chances are fading fast. <END>"
+  },
+  {
+    "input": "<HI> [MODE:OPPONENT] [STAGE:AI_MOVE] [SITUATION:PROMOTION] EVAL:-7.1 HIST:d4 Nf6 c4 e6 Nc3 Bb4 e3 O-O Bd3 d5 Nf3 c5 O-O Nc6",
+    "target": "<START> मेरा प्यादा सफलतापूर्वक वज़ीर बन गया। अब इस बढ़त से वापसी करना आपके लिए बेहद मुश्किल होगा। <END>"
+  }
+]

@@ -1,0 +1,122 @@
+[
+  {
+    "input": "<EN> [MODE:CHATBOT] [STAGE:STARTUP] [SITUATION:GREETING] USER:hello tell me who you are",
+    "target": "<START> Hello! I am your personal chess advisor and opponent, built with TypeScript and TensorFlow.js. <END>"
+  },
+  {
+    "input": "<HI> [MODE:CHATBOT] [STAGE:STARTUP] [SITUATION:GREETING] USER:नमस्ते आप कौन हैं",
+    "target": "<START> नमस्ते! मैं आपका पर्सनल चेस एडवाइजर हूँ, जिसे मशीन लर्निंग द्वारा बनाया गया है। <END>"
+  },
+  {
+    "input": "<EN> [MODE:CHATBOT] [STAGE:STARTUP] [SITUATION:IDENTITY] USER:what can you do",
+    "target": "<START> I am an artificial intelligence neural network trained to help you analyze games, solve puzzles, and improve your chess tactics. <END>"
+  },
+  {
+    "input": "<HI> [MODE:CHATBOT] [STAGE:STARTUP] [SITUATION:IDENTITY] USER:आप क्या कर सकते हैं",
+    "target": "<START> मैं एक आर्टिफिशियल इंटेलिजेंस हूँ जो आपके शतरंज के खेल का विश्लेषण करने और पहेलियों को हल करने में मदद करता हूँ। <END>"
+  },
+  {
+    "input": "<EN> [MODE:TEACHER] [STAGE:AI_PONDER] [SITUATION:PUZZLE_HINT] FEN:r1bqkbnr/pppp1ppp/2n5/4p3/2B1P3/5N2/PPPP1PPP/RNBQK2R b KQkq - 3 3",
+    "target": "<START> Look at the weakness around the enemy king before deciding on your move. Can you spot the undefended square? <END>"
+  },
+  {
+    "input": "<HI> [MODE:TEACHER] [STAGE:AI_PONDER] [SITUATION:PUZZLE_HINT] FEN:r1bqkbnr/pppp1ppp/2n5/4p3/2B1P3/5N2/PPPP1PPP/RNBQK2R b KQkq - 3 3",
+    "target": "<START> कोई चाल चलने से पहले दुश्मन राजा के आसपास की कमजोरी को ध्यान से देखें। क्या आप असुरक्षित खाने को देख सकते हैं? <END>"
+  },
+  {
+    "input": "<EN> [MODE:TEACHER] [STAGE:AI_PONDER] [SITUATION:PUZZLE_HINT] FEN:r1bq1rk1/ppp2ppp/2n2n2/3pp3/1bB1P3/2NP1N2/PPPB1PPP/R2QK2R w KQ - 0 7",
+    "target": "<START> Notice how the enemy bishop is pinning your knight to the king. You need to break that pin before launching an attack. <END>"
+  },
+  {
+    "input": "<HI> [MODE:TEACHER] [STAGE:AI_PONDER] [SITUATION:PUZZLE_HINT] FEN:r1bq1rk1/ppp2ppp/2n2n2/3pp3/1bB1P3/2NP1N2/PPPB1PPP/R2QK2R w KQ - 0 7",
+    "target": "<START> ध्यान दें कि दुश्मन का ऊँट आपके घोड़े को राजा के साथ बांध (pin) रहा है। हमला करने से पहले आपको इस पिन को तोड़ना होगा। <END>"
+  },
+  {
+    "input": "<EN> [MODE:TEACHER] [STAGE:AI_PONDER] [SITUATION:PUZZLE_HINT] FEN:4r1k1/5ppp/8/8/8/8/5PPP/4R1K1 w - - 0 1",
+    "target": "<START> Analyze the back rank! The enemy king is trapped behind its own pawns. Look for a rook sacrifice or direct intrusion. <END>"
+  },
+  {
+    "input": "<HI> [MODE:TEACHER] [STAGE:AI_PONDER] [SITUATION:PUZZLE_HINT] FEN:4r1k1/5ppp/8/8/8/8/5PPP/4R1K1 w - - 0 1",
+    "target": "<START> आखिरी पंक्ति (Back rank) का विश्लेषण करें! दुश्मन राजा अपने ही प्यादों के पीछे फंसा है। हाथी से सीधा हमला करने की कोशिश करें। <END>"
+  },
+  {
+    "input": "<EN> [MODE:TEACHER] [STAGE:AI_PONDER] [SITUATION:PUZZLE_HINT] FEN:r1bqk2r/pppp1ppp/2n2n2/2b1p3/2B1P3/2N2N2/PPPP1PPP/R1BQK2R w KQkq - 4 5",
+    "target": "<START> In symmetrical positions like the Four Knights Game, controlling the central d4 and e4 squares is your highest priority. <END>"
+  },
+  {
+    "input": "<HI> [MODE:TEACHER] [STAGE:AI_PONDER] [SITUATION:PUZZLE_HINT] FEN:r1bqk2r/pppp1ppp/2n2n2/2b1p3/2B1P3/2N2N2/PPPP1PPP/R1BQK2R w KQkq - 4 5",
+    "target": "<START> फोर नाइट्स गेम जैसी समान स्थितियों में, बोर्ड के मध्य खानों (d4 और e4) पर नियंत्रण बनाना आपकी सबसे बड़ी प्राथमिकता होनी चाहिए। <END>"
+  },
+  {
+    "input": "<EN> [MODE:TEACHER] [STAGE:AI_PONDER] [SITUATION:PUZZLE_HINT] FEN:r3k2r/ppp2ppp/2np1n2/4p3/1bB1P3/2NP1B2/PPP2PPP/R1BQK2R w KQkq - 0 8",
+    "target": "<START> Can you see the tactical skewer? When the queen moves out of the way, the piece lined up behind her will be completely unprotected. <END>"
+  },
+  {
+    "input": "<HI> [MODE:TEACHER] [STAGE:AI_PONDER] [SITUATION:PUZZLE_HINT] FEN:r3k2r/ppp2ppp/2np1n2/4p3/1bB1P3/2NP1B2/PPP2PPP/R1BQK2R w KQkq - 0 8",
+    "target": "<START> क्या आप इस सामरिक हमले (skewer) को देख सकते हैं? जब वज़ीर रास्ते से हटेगा, तो उसके पीछे खड़ा मोहरा बिना किसी सुरक्षा के रह जाएगा। <END>"
+  },
+  {
+    "input": "<EN> [MODE:CHATBOT] [STAGE:STARTUP] [SITUATION:GREETING] USER:good morning let us play a game",
+    "target": "<START> Good morning! I am ready and excited to play. Will you open with 1.e4 or prefer a quieter positional setup? <END>"
+  },
+  {
+    "input": "<HI> [MODE:CHATBOT] [STAGE:STARTUP] [SITUATION:GREETING] USER:सुप्रभात आइए एक खेल खेलते हैं",
+    "target": "<START> सुप्रभात! मैं खेलने के लिए बिल्कुल तैयार हूँ। क्या आप 1.e4 के साथ शुरुआत करेंगे या रणनीतिक खेल पसंद करेंगे? <END>"
+  },
+  {
+    "input": "<EN> [MODE:TEACHER] [STAGE:AI_PONDER] [SITUATION:PUZZLE_HINT] FEN:8/8/8/3k4/8/3K4/3P4/8 w - - 0 1",
+    "target": "<START> In king and pawn endgames, claiming the opposition is critical. Step directly in front of the enemy king to force him backward. <END>"
+  },
+  {
+    "input": "<HI> [MODE:TEACHER] [STAGE:AI_PONDER] [SITUATION:PUZZLE_HINT] FEN:8/8/8/3k4/8/3K4/3P4/8 w - - 0 1",
+    "target": "<START> राजा और प्यादे के एंडगेम में ऑपोजिशन (Opposition) लेना बेहद जरूरी है। दुश्मन राजा को पीछे धकेलने के लिए ठीक उसके सामने कदम रखें। <END>"
+  },
+  {
+    "input": "<EN> [MODE:CHATBOT] [STAGE:STARTUP] [SITUATION:IDENTITY] USER:how do you analyze moves",
+    "target": "<START> I evaluate piece activity, king safety, and pawn structures, translating tactical board data into understandable advice. <END>"
+  },
+  {
+    "input": "<HI> [MODE:CHATBOT] [STAGE:STARTUP] [SITUATION:IDENTITY] USER:आप चालों का विश्लेषण कैसे करते हैं",
+    "target": "<START> मैं मोहरों की सक्रियता, राजा की सुरक्षा और प्यादों की संरचना का मूल्यांकन करके आपको आसान भाषा में सलाह देता हूँ। <END>"
+  },
+  {
+    "input": "<EN> [MODE:TEACHER] [STAGE:AI_PONDER] [SITUATION:PUZZLE_HINT] FEN:rnbq1rk1/pppp1ppp/5n2/4p3/2B1P3/5N2/PPPP1PPP/RNBQ1RK1 w - - 4 5",
+    "target": "<START> Don't rush your move. Take a moment to see which of your opponent's pieces is doing the most work. <END>"
+  },
+  {
+    "input": "<HI> [MODE:TEACHER] [STAGE:AI_PONDER] [SITUATION:PUZZLE_HINT] FEN:rnbq1rk1/pppp1ppp/5n2/4p3/2B1P3/5N2/PPPP1PPP/RNBQ1RK1 w - - 4 5",
+    "target": "<START> जल्दी चाल मत चलिए। पहले देखिए कि विरोधी का कौन सा मोहरा सबसे ज्यादा असर डाल रहा है। <END>"
+  },
+  {
+    "input": "<EN> [MODE:TEACHER] [STAGE:AI_PONDER] [SITUATION:PUZZLE_HINT] FEN:r2q1rk1/pp2bppp/2np1n2/2p1p3/2B1P3/2NP1N2/PPP2PPP/R1BQ1RK1 w - - 0 9",
+    "target": "<START> Before attacking, check if all your pieces are helping. A good attack usually needs teamwork. <END>"
+  },
+  {
+    "input": "<HI> [MODE:TEACHER] [STAGE:AI_PONDER] [SITUATION:PUZZLE_HINT] FEN:r2q1rk1/pp2bppp/2np1n2/2p1p3/2B1P3/2NP1N2/PPP2PPP/R1BQ1RK1 w - - 0 9",
+    "target": "<START> हमला करने से पहले देखिए कि आपके सभी मोहरे साथ काम कर रहे हैं या नहीं। अकेला मोहरा अक्सर काफी नहीं होता। <END>"
+  },
+  {
+    "input": "<EN> [MODE:TEACHER] [STAGE:AI_PONDER] [SITUATION:PUZZLE_HINT] FEN:8/8/2k5/8/2P5/3K4/8/8 w - - 0 1",
+    "target": "<START> This looks simple, but every king move matters. Think about where you want your king to stand a few moves from now. <END>"
+  },
+  {
+    "input": "<HI> [MODE:TEACHER] [STAGE:AI_PONDER] [SITUATION:PUZZLE_HINT] FEN:8/8/2k5/8/2P5/3K4/8/8 w - - 0 1",
+    "target": "<START> स्थिति आसान दिख रही है, लेकिन राजा की हर चाल महत्वपूर्ण है। सोचिए कि कुछ चालों बाद आपका राजा कहाँ होना चाहिए। <END>"
+  },
+  {
+    "input": "<EN> [MODE:TEACHER] [STAGE:AI_PONDER] [SITUATION:PUZZLE_HINT] FEN:r1bqk2r/pppp1ppp/2n2n2/4p3/2B1P3/5N2/PPPP1PPP/RNBQ1RK1 w kq - 4 5",
+    "target": "<START> Look for forcing moves first. Checks, captures, and threats often reveal the best idea. <END>"
+  },
+  {
+    "input": "<HI> [MODE:TEACHER] [STAGE:AI_PONDER] [SITUATION:PUZZLE_HINT] FEN:r1bqk2r/pppp1ppp/2n2n2/4p3/2B1P3/5N2/PPPP1PPP/RNBQ1RK1 w kq - 4 5",
+    "target": "<START> सबसे पहले ऐसी चालें देखिए जो मजबूर करें, जैसे शह, मारना या सीधा खतरा बनाना। अक्सर वहीं सबसे अच्छा विचार मिलता है। <END>"
+  },
+  {
+    "input": "<EN> [MODE:TEACHER] [STAGE:AI_PONDER] [SITUATION:PUZZLE_HINT] FEN:6k1/5ppp/8/8/8/8/5PPP/6K1 w - - 0 1",
+    "target": "<START> There's no need to hurry here. Improve your king first, then think about pushing your pawns. <END>"
+  },
+  {
+    "input": "<HI> [MODE:TEACHER] [STAGE:AI_PONDER] [SITUATION:PUZZLE_HINT] FEN:6k1/5ppp/8/8/8/8/5PPP/6K1 w - - 0 1",
+    "target": "<START> यहाँ जल्दबाज़ी की ज़रूरत नहीं है। पहले अपने राजा को बेहतर जगह पर लाइए, फिर प्यादों को आगे बढ़ाइए। <END>"
+  }
+]

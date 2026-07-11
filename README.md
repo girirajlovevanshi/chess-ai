@@ -19,3 +19,20 @@ A lightweight, open-source Chess AI built entirely in JavaScript/TypeScript usin
    `npm run train` (Compiles the LSTM and exports the model)
 4. **Chat with the AI:**
    `npm run chat`
+
+
+
+   chess-ai/
+├── data_chunks/               <-- DATA DIRECTORY (100% decoupled from code)
+│   ├── opponent_gameplay.json <-- In-game banter, blunder reactions, taunts
+│   ├── advisor_analysis.json  <-- Positional evaluation, tactical breakdowns
+│   └── teacher_lessons.json   <-- Puzzle hints, Socratic explanations, chat QA
+├── model_output/              <-- AUTOMATICALLY GENERATED EXPORTS
+│   ├── vocab.json             <-- Immutable vocabulary dictionary
+│   ├── model.json             <-- Neural network architecture topology
+│   └── weights.bin            <-- Binary mathematical weights
+└── src/                       <-- CORE ENGINE SCRIPTS
+    ├── tokenizer.ts           <-- Vocabulary mapping & sequence encoder/decoder
+    ├── dataset.ts    ( done)         <-- Multi-chunk data aggregator & tensor preparer
+    ├── train.ts   ( done)            <-- Deep learning trainer & model exporter
+    └── chat.ts ( done )               <-- Local inference & terminal chat runner

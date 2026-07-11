@@ -35,109 +35,141 @@ var __importStar = (this && this.__importStar) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 const tf = __importStar(require("@tensorflow/tfjs"));
 const fs = __importStar(require("fs"));
-// 1. DATA LOADING & PREPARATION
-async function loadData() {
-    console.log("Loading training data from disk...");
-    const rawData = fs.readFileSync('./training_data.json', 'utf-8');
-    const parsedData = JSON.parse(rawData);
-    const vocabSize = parsedData.vocabSize;
-    const dataset = parsedData.dataset;
-    // We convert our standard JavaScript arrays into TensorFlow 2D Tensors (Matrices)
-    // Shape: [numberOfExamples, sequenceLength]
+const path = __importStar(require("path"));
+// ── GLOBAL PRODUCTION TARGET CONSTRAINTS ──────────────────────────────────
+const INPUT_DATA_PATH = './training_data.json';
+const OUTPUT_DIR = './model_output';
+/**
+ * Loads the compiled training dataset and vocabulary payload from disk.
+ */
+async function loadProductionData() {
+    console.log(`[Data Ingestion] Loading compiled dataset from '${INPUT_DATA_PATH}'...`);
+    if (!fs.existsSync(INPUT_DATA_PATH)) {
+        throw new Error(`[Critical Error] Missing '${INPUT_DATA_PATH}'. Run 'node dist/dataset.js' first to compile your data chunks.`);
+    }
+    const rawData = fs.readFileSync(INPUT_DATA_PATH, 'utf-8');
+    const payload = JSON.parse(rawData);
+    const vocabSize = payload.vocabSize;
+    const dataset = payload.dataset;
+    if (!dataset || dataset.length === 0) {
+        throw new Error("[Critical Error] The loaded dataset array is empty. Aborting training.");
+    }
     const inputs = [];
     const targets = [];
     for (const row of dataset) {
         inputs.push(row.input);
         targets.push(row.target);
     }
-    const inputTensor = tf.tensor2d(inputs, [inputs.length, inputs[0].length]);
-    const targetTensor = tf.tensor2d(targets, [targets.length, targets[0].length]).expandDims(-1);
-    console.log(`Data loaded! Total Examples: ${inputs.length}`);
-    console.log(`Vocabulary Size: ${vocabSize}`);
-    return { inputTensor, targetTensor, vocabSize };
+    const sequenceLength = inputs[0].length;
+    console.log(`[Data Ingestion] Dataset loaded successfully! Total Matrix Rows: ${inputs.length}`);
+    console.log(`[Data Ingestion] Registered Vocabulary Size: ${vocabSize} | Sequence Window: ${sequenceLength}`);
+    // 1. Compile Input Tensor (2D Matrix: [batchSize, sequenceLength])
+    const inputTensor = tf.tensor2d(inputs, [inputs.length, sequenceLength], 'int32');
+    // 2. NATIVE MEMORY OPTIMIZATION: Use tf.oneHot on the backend hardware instead of JS array loops!
+    // This prevents Node.js fatal heap out-of-memory crashes when processing 500,000+ rows on Google Cloud.
+    console.log("[Data Ingestion] Allocating categorical One-Hot target matrices in native hardware memory...");
+    const targetIndicesTensor = tf.tensor2d(targets, [targets.length, sequenceLength], 'int32');
+    const targetTensor = tf.oneHot(targetIndicesTensor, vocabSize);
+    // Clean up intermediate indices tensor to free RAM immediately
+    targetIndicesTensor.dispose();
+    return { inputTensor, targetTensor, vocabSize, sequenceLength, payload };
 }
-// 2. NEURAL NETWORK ARCHITECTURE
-function buildModel(vocabSize, sequenceLength) {
-    console.log("Building the AI Architecture (Stacked LSTM)...");
+/**
+ * Compiles a production-grade Bidirectional Stacked Architecture.
+ */
+function buildProductionModel(vocabSize, sequenceLength) {
+    console.log("[Architecture] Compiling Stacked Bidirectional Sequence Brain...");
     const model = tf.sequential();
-    // Layer 1: Embedding
-    // Translates our token IDs (e.g., 345) into dense vectors (e.g., [0.1, -0.4, ...])
+    // Layer 1: Word/Character Embedding Matrix
     model.add(tf.layers.embedding({
         inputDim: vocabSize,
-        outputDim: 64, // The depth of the AI's "understanding" per word
+        outputDim: 128, // High dimensional mapping for chess concepts & Hindi/English grammar
         inputLength: sequenceLength
     }));
-    // Layer 2: First LSTM (Memory)
-    // returnSequences: true means it passes the full history to the next layer
-    model.add(tf.layers.lstm({
-        units: 128,
-        returnSequences: true
+    // Layer 2: First Bidirectional LSTM (Reads FEN and history forwards and backwards)
+    model.add(tf.layers.bidirectional({
+        layer: tf.layers.lstm({ units: 128, returnSequences: true })
     }));
-    // Layer 3: Second LSTM (Deep Context)
-    // Stacking LSTMs makes the AI significantly smarter at understanding long FEN strings
-    model.add(tf.layers.lstm({
-        units: 128,
-        returnSequences: true
+    // Layer 3: Deep Context Bidirectional LSTM (Locks down persona tone & teaching Socratic logic)
+    model.add(tf.layers.bidirectional({
+        layer: tf.layers.lstm({ units: 128, returnSequences: true })
     }));
-    // Layer 4: Dense Output
-    // Maps the LSTM thoughts back to our vocabulary to predict the correct words
-    model.add(tf.layers.dense({
-        units: vocabSize,
-        activation: 'softmax' // Softmax converts the output into percentages (probabilities)
+    // Layer 4: Time-Distributed Dense Output (Predicts exact next vocabulary token per step)
+    model.add(tf.layers.timeDistributed({
+        layer: tf.layers.dense({ units: vocabSize, activation: 'softmax' })
     }));
-    // Compile the brain with an optimizer and a loss function
     model.compile({
-        optimizer: tf.train.adam(0.01), // Adam is a smart algorithm that adjusts learning speed
-        loss: 'sparseCategoricalCrossentropy', // Perfect for text generation math
+        optimizer: tf.train.adam(0.001),
+        loss: 'categoricalCrossentropy',
         metrics: ['accuracy']
     });
-    model.summary(); // This will print a cool architectural diagram in your terminal
+    model.summary();
     return model;
 }
-// 3. THE TRAINING LOOP
-async function runTraining() {
-    const { inputTensor, targetTensor, vocabSize } = await loadData();
-    const sequenceLength = inputTensor.shape[1];
-    const model = buildModel(vocabSize, sequenceLength);
-    console.log("\nStarting the training process... This may take a minute.");
-    // model.fit() is where the actual learning happens
+/**
+ * Master execution sequence for neural network training and mobile artifact exporting.
+ */
+async function runProductionTrainingSequence() {
+    console.log("\n========================================================");
+    console.log("       INITIALIZING V1 CHESS AI TRAINING PIPELINE       ");
+    console.log("========================================================\n");
+    const { inputTensor, targetTensor, vocabSize, sequenceLength, payload } = await loadProductionData();
+    const model = buildProductionModel(vocabSize, sequenceLength);
+    console.log("\n[Training] Starting neural network optimization... This will scale cleanly on Cloud GPUs.");
+    // Set to 15 epochs for local Mac validation. When deploying to Google Cloud,
+    // simply change epochs to 25 or 30 for deep convergence on massive datasets!
     await model.fit(inputTensor, targetTensor, {
-        epochs: 10, // How many times it reads the entire dataset
-        batchSize: 64, // How many examples it looks at simultaneously
-        shuffle: true, // Mixes up the games so it doesn't memorize them in order
+        epochs: 15,
+        batchSize: 32,
+        shuffle: true,
         callbacks: {
             onEpochEnd: (epoch, logs) => {
-                // This gives us a live update of the AI getting smarter
-                console.log(`Epoch ${epoch + 1}/10 - Loss: ${logs?.loss.toFixed(4)} - Accuracy: ${(logs?.acc * 100).toFixed(2)}%`);
+                console.log(`Epoch ${epoch + 1}/15 - Loss: ${logs?.loss.toFixed(4)} - Accuracy: ${(logs?.acc * 100).toFixed(2)}%`);
             }
         }
     });
-    console.log("\nTraining complete! AI has successfully learned chess commentary.");
-    // 4. EXPORTING THE 
-    const outputDir = './model_output';
-    if (!fs.existsSync(outputDir)) {
-        fs.mkdirSync(outputDir);
+    console.log("\n[Training] Network optimization complete! Serializing production artifacts...");
+    if (!fs.existsSync(OUTPUT_DIR)) {
+        fs.mkdirSync(OUTPUT_DIR, { recursive: true });
     }
-    console.log(`Saving the trained brain to: ${outputDir}`);
-    // We pass a custom IOHandler to TensorFlow so pure JS knows how to write to Node's hard drive
+    // 1. Save exact Tokenizer Vocabulary directly to model_output/vocab.json
+    // This ensures your mobile app or local chat runner has the exact same word dictionary!
+    const vocabularyPayload = {
+        vocabSize: payload.vocabSize,
+        wordToId: payload.wordToId,
+        idToWord: payload.idToWord
+    };
+    fs.writeFileSync(path.join(OUTPUT_DIR, 'vocab.json'), JSON.stringify(vocabularyPayload, null, 2), 'utf-8');
+    console.log(`[Exporting] Saved immutable vocabulary dictionary to '${path.join(OUTPUT_DIR, 'vocab.json')}'.`);
+    // 2. BULLETPROOF EXPORT: Use official TFJS SaveHandler to guarantee weightsManifest exists!
     await model.save(tf.io.withSaveHandler(async (artifacts) => {
-        // 1. Save the JSON architecture
-        fs.writeFileSync(`${outputDir}/model.json`, JSON.stringify(artifacts.modelTopology, null, 2));
-        // 2. Save the weights manifest (tells TF where to find the binary numbers)
-        const weightManifest = [{
-                paths: ['weights.bin'],
-                weights: artifacts.weightSpecs
-            }];
-        const modelJson = JSON.parse(fs.readFileSync(`${outputDir}/model.json`, 'utf-8'));
-        modelJson.weightsManifest = weightManifest;
-        fs.writeFileSync(`${outputDir}/model.json`, JSON.stringify(modelJson, null, 2));
-        // 3. Save the actual neural weights into a binary .bin file
+        // Save model topology and weight specifications together
+        const modelJsonPayload = {
+            modelTopology: artifacts.modelTopology,
+            weightsManifest: [{
+                    paths: ['weights.bin'],
+                    weights: artifacts.weightSpecs
+                }]
+        };
+        fs.writeFileSync(path.join(OUTPUT_DIR, 'model.json'), JSON.stringify(modelJsonPayload, null, 2), 'utf-8');
+        console.log(`[Exporting] Saved neural topology and weights manifest to '${path.join(OUTPUT_DIR, 'model.json')}'.`);
+        // Save raw binary mathematical weights buffer
         if (artifacts.weightData) {
-            fs.writeFileSync(`${outputDir}/weights.bin`, Buffer.from(artifacts.weightData));
+            fs.writeFileSync(path.join(OUTPUT_DIR, 'weights.bin'), Buffer.from(artifacts.weightData));
+            console.log(`[Exporting] Saved binary mathematical weights to '${path.join(OUTPUT_DIR, 'weights.bin')}'.`);
         }
         return { modelArtifactsInfo: { dateSaved: new Date(), modelTopologyType: 'JSON' } };
     }));
-    console.log("Model successfully exported! Look inside the model_output folder!");
+    // Clean up allocated system memory tensors to prevent RAM saturation
+    inputTensor.dispose();
+    targetTensor.dispose();
+    console.log("\n========================================================");
+    console.log(" SUCCESS! V1 Chess AI Brain Exported & Ready for Chat!  ");
+    console.log("========================================================\n");
+    process.exit(0);
 }
-// Start the sequence
-runTraining();
+// Execute training sequence
+runProductionTrainingSequence().catch(err => {
+    console.error("\n[CRITICAL FAILURE] Training pipeline aborted:", err);
+    process.exit(1);
+});

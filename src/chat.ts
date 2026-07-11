@@ -1,7 +1,14 @@
 import * as tf from '@tensorflow/tfjs';
-import { ChessAITokenizer } from './tokenizer.js';
 import * as fs from 'fs';
+import * as path from 'path';
 import * as readline from 'readline';
+import { ChessAITokenizer } from './tokenizer.js';
+
+// ── GLOBAL PRODUCTION TARGET CONSTRAINTS ──────────────────────────────────
+// Must explicitly match the sequence length set in dataset.ts and train.ts
+const MAX_SEQUENCE_LENGTH = 384;
+const VOCAB_PATH = './model_output/vocab.json';
+const MODEL_DIR = './model_output';
 
 const tokenizer = new ChessAITokenizer();
 
@@ -11,21 +18,33 @@ const rl = readline.createInterface({
 });
 
 /**
- * Loads the trained brain and rebuilds the tokenizer vocabulary from disk
+ * Loads the compiled model topology, binary weights, and exact vocabulary map from disk.
  */
-async function loadAI() {
-    console.log("Loading AI weights and vocabulary from disk...");
+async function loadProductionAI(): Promise<tf.LayersModel> {
+    console.log("[Inference Engine] Loading neural architecture and vocabulary from disk...");
 
-    // 1. Load the EXACT dictionary map generated during training
-    const parsedData = JSON.parse(fs.readFileSync('./training_data.json', 'utf-8'));
-    tokenizer.wordToId = parsedData.wordToId;
-    tokenizer.idToWord = parsedData.idToWord;
+    if (!fs.existsSync(VOCAB_PATH)) {
+        throw new Error(`[Critical Error] Missing '${VOCAB_PATH}'. Run your training sequence first.`);
+    }
 
-    // 2. Custom Pure JS Node Loader
+    // 1. Load the immutable vocabulary map exported directly from train.ts
+    const vocabPayload = JSON.parse(fs.readFileSync(VOCAB_PATH, 'utf-8'));
+    tokenizer.wordToId = vocabPayload.wordToId;
+    tokenizer.idToWord = vocabPayload.idToWord;
+    const vocabSize = Object.keys(tokenizer.wordToId).length;
+
+    // 2. Custom Pure JS Node Loader (Bypasses C++ binding constraints)
     const model = await tf.loadLayersModel({
         load: async () => {
-            const modelJson = JSON.parse(fs.readFileSync('./model_output/model.json', 'utf-8'));
-            const weightBuffer = fs.readFileSync('./model_output/weights.bin');
+            const modelJsonPath = path.join(MODEL_DIR, 'model.json');
+            const weightsBinPath = path.join(MODEL_DIR, 'weights.bin');
+
+            if (!fs.existsSync(modelJsonPath) || !fs.existsSync(weightsBinPath)) {
+                throw new Error(`[Critical Error] Missing model artifacts inside '${MODEL_DIR}'.`);
+            }
+
+            const modelJson = JSON.parse(fs.readFileSync(modelJsonPath, 'utf-8'));
+            const weightBuffer = fs.readFileSync(weightsBinPath);
 
             const weightData = weightBuffer.buffer.slice(
                 weightBuffer.byteOffset,
@@ -40,58 +59,82 @@ async function loadAI() {
         }
     });
 
-    console.log(`AI successfully loaded! Vocabulary Size: ${tokenizer.vocabSize} words ready to chat!\n`);
+    console.log(`[Inference Engine] AI successfully loaded! Vocabulary Matrix: ${vocabSize} words ready.\n`);
     return model;
 }
 
 /**
- * Sequence-to-Sequence Generation
- * The LSTM translates the entire chess board state into a full sentence in ONE forward pass!
+ * Executes a single forward inference pass to generate clean commentary.
  */
-async function generateResponse(model: tf.LayersModel, prompt: string) {
-    const inputTokens = tokenizer.encode(prompt);
-    const inputTensor = tf.tensor2d([inputTokens], [1, inputTokens.length]);
+async function generateResponse(model: tf.LayersModel, prompt: string): Promise<void> {
+    // Encode input prompt using the exact production sequence window
+    const inputTokens = tokenizer.encode(prompt, MAX_SEQUENCE_LENGTH);
+    const inputTensor = tf.tensor2d([inputTokens], [1, MAX_SEQUENCE_LENGTH]);
 
     const predictions = model.predict(inputTensor) as tf.Tensor;
     const predictedIds = Array.from(await predictions.squeeze().argMax(-1).data());
 
+    // Dispose of memory tensors immediately after prediction to prevent RAM bloat
     inputTensor.dispose();
     predictions.dispose();
 
-    // 1. Map IDs directly to words and filter out padding/special tokens
+    // 1. Map numerical IDs directly to vocabulary words and filter out systemic control tokens
     const words = predictedIds
         .map(id => tokenizer.idToWord[id] || '')
-        .filter(word => !['', '', '', ''].includes(word));
+        .filter(word => !['<PAD>', '<START>', '<END>', '<UNK>', ''].includes(word));
 
-    // 2. Remove duplicate consecutive words (fixes the "am am" and "advisor advisor" stutter!)
+    // 2. Consecutive deduplication filter (Stops repetitive word stuttering like 'advisor advisor')
     const cleanWords = words.filter((word, idx) => word !== words[idx - 1]);
 
-    // 3. Join with explicit spaces so words never smash together!
-    const finalSentence = cleanWords.join(' ').trim();
+    // 3. Format spacing cleanly around punctuation and chess notation
+    const finalSentence = cleanWords
+        .join(' ')
+        .replace(/\s+([.,!?\])\]])/g, '$1')
+        .trim();
 
     console.log(`AI: ${finalSentence || "[Could not generate confidence score]"}\n`);
 }
 
-async function startChat() {
-    const model = await loadAI();
+/**
+ * Master interactive chat loop for terminal testing.
+ */
+async function startInteractivePlayground(): Promise<void> {
+    try {
+        const model = await loadProductionAI();
 
-    console.log("==================================================");
-    console.log("Try pasting a context string like this:");
-    console.log("<EN> [MODE:OPPONENT] [STAGE:USER_MOVE] [EVAL:-5] [SITUATION:BLUNDER]");
-    console.log("==================================================\n");
+        console.log("====================================================================");
+        console.log(" V1 PRODUCTION CHESS AI INTERACTIVE PLAYGROUND                      ");
+        console.log("====================================================================");
+        console.log("Try pasting test prompts representing your app's core personas:");
+        console.log(" 1. <EN> [MODE:OPPONENT] [STAGE:USER_MOVE] [SITUATION:BLUNDER] EVAL:-5.2");
+        console.log(" 2. <HI> [MODE:OPPONENT] [STAGE:USER_MOVE] [SITUATION:CHECK] EVAL:0.0");
+        console.log(" 3. <EN> [MODE:ADVISOR] [STAGE:USER_MOVE] [SITUATION:NORMAL] EVAL:+0.4");
+        console.log(" 4. <EN> [MODE:CHATBOT] [STAGE:STARTUP] USER:hello tell me who you are");
+        console.log(" 5. <HI> [MODE:TEACHER] [STAGE:AI_PONDER] [SITUATION:PUZZLE_HINT]");
+        console.log("Type 'exit' to shut down the playground.");
+        console.log("====================================================================\n");
 
-    const askQuestion = () => {
-        rl.question('You (Context Prompt): ', async (prompt) => {
-            if (prompt.toLowerCase() === 'exit') {
-                rl.close();
-                return;
-            }
-            await generateResponse(model, prompt);
-            askQuestion();
-        });
-    };
+        const askQuestion = () => {
+            rl.question('You (Context Prompt): ', async (prompt) => {
+                const cleanPrompt = prompt.trim();
+                if (cleanPrompt.toLowerCase() === 'exit') {
+                    console.log("[Inference Engine] Shutting down playground. Good luck with the app release!");
+                    rl.close();
+                    process.exit(0);
+                }
+                if (cleanPrompt.length > 0) {
+                    await generateResponse(model, cleanPrompt);
+                }
+                askQuestion();
+            });
+        };
 
-    askQuestion();
+        askQuestion();
+    } catch (err) {
+        console.error("\n[CRITICAL FAILURE] Inference playground aborted:", err);
+        rl.close();
+        process.exit(1);
+    }
 }
 
-startChat();
+startInteractivePlayground();

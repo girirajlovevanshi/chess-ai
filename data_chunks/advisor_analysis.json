@@ -1,0 +1,122 @@
+[
+  {
+    "input": "<EN> [MODE:ADVISOR] [STAGE:USER_MOVE] [SITUATION:NORMAL] EVAL:+0.4 HIST:e4 e5 Nf3 Nc6 Bc4 Bc5 c3 Nf6 d3 d6 O-O a6 a4 Ba7 Re1 O-O h3 h6 Nbd2",
+    "target": "<START> Standard positional play. Good piece development, preparing for the mid-game battle. <END>"
+  },
+  {
+    "input": "<HI> [MODE:ADVISOR] [STAGE:USER_MOVE] [SITUATION:NORMAL] EVAL:-0.2 HIST:d4 Nf6 c4 e6 Nf3 d5 Nc3 Bb4 cxd5 exd5 Bg5 h6 Bxf6 Qxf6 Qa4+ Nc6 e3 O-O",
+    "target": "<START> एक मजबूत और सोची-समझी चाल। केंद्र पर सुरक्षित नियंत्रण बनाना। <END>"
+  },
+  {
+    "input": "<EN> [MODE:ADVISOR] [STAGE:USER_MOVE] [SITUATION:CAPTURE_FAVORABLE] EVAL:+2.5 HIST:e4 c5 Nf3 d6 d4 cxd4 Nxd4 Nf6 Nc3 a6 Be3 e5 Nb3 Be6 f3 h5 Nd5 Bxd5",
+    "target": "<START> An excellent capture! We came out way ahead on that material trade. <END>"
+  },
+  {
+    "input": "<HI> [MODE:ADVISOR] [STAGE:USER_MOVE] [SITUATION:CASTLING] EVAL:+0.1 HIST:e4 e5 Nf3 Nc6 Bb5 Nf6 O-O Nxe4 d4 Nd6 Bxc6 dxc6 dxe5 Nf5 Qxd8+ Kxd8 Nc3",
+    "target": "<START> सुरक्षा पहले। राजा को सुरक्षित कोने में ले जाना इस स्थिति में बिल्कुल सही था। <END>"
+  },
+  {
+    "input": "<EN> [MODE:ADVISOR] [STAGE:USER_MOVE] [SITUATION:CAPTURE_SACRIFICE] EVAL:+1.8 HIST:e4 c5 c3 d5 exd5 Qxd5 d4 Nc6 Nf3 Bg4 Be2 cxd4 cxd4 e6 Nc3 Qa5 O-O Rd8",
+    "target": "<START> A bold tactical sacrifice! You gave up material to open up critical attacking lines against the enemy king. <END>"
+  },
+  {
+    "input": "<HI> [MODE:ADVISOR] [STAGE:USER_MOVE] [SITUATION:CAPTURE_SACRIFICE] EVAL:+1.5 HIST:d4 d5 c4 c6 Nf3 Nf6 Nc3 e6 e3 Nbd7 Bd3 dxc4 Bxc4 b5 Bd3 Bb7 O-O a6 e4 c5",
+    "target": "<START> यह एक साहसिक बलिदान है! आपने दुश्मन के राजा पर आक्रमण करने के लिए अपना मोहरा कुर्बान किया है। <END>"
+  },
+  {
+    "input": "<EN> [MODE:ADVISOR] [STAGE:USER_MOVE] [SITUATION:NORMAL] EVAL:+1.2 HIST:e4 c5 Nf3 d6 d4 cxd4 Nxd4 Nf6 Nc3 a6 Bg5 e6 f4 Be7 Qf3 Qc7 O-O-O Nbd7 g4 b5 Bxf6 Nxf6 g5 Nd7 f5 O-O",
+    "target": "<START> Aggressive choice. You are challenging their pawn structures directly and gaining dynamic space on the kingside. <END>"
+  },
+  {
+    "input": "<HI> [MODE:ADVISOR] [STAGE:USER_MOVE] [SITUATION:NORMAL] EVAL:+0.9 HIST:e4 e5 Nf3 Nc6 Bc4 Nf6 Ng5 d5 exd5 Na5 Bb5+ c6 dxc6 bxc6 Qf3 Rb8 Bd3 Be7 Nc3 O-O O-O h6 Nge4 Nd5 ng3 g6",
+    "target": "<START> आक्रामक और साहसिक खेल। आप बोर्ड पर बहुत दबाव बना रहे हैं और आक्रमण के लिए खुली फाइलें ढूंढ रहे हैं। <END>"
+  },
+  {
+    "input": "<EN> [MODE:ADVISOR] [STAGE:USER_MOVE] [SITUATION:BLUNDER] EVAL:-4.2 HIST:e4 e5 Nf3 Nc6 Bb5 a6 Ba4 Nf6 O-O Be7 Re1 b5 Bb3 d6 c3 O-O h3 Nb8 d4 Nbd7 c4 c6 Nc3 Qc7 a3 Bb7",
+    "target": "<START> Tactical mistake. You completely overlooked the back-rank mate threat and miscalculated the pawn exchange logic. <END>"
+  },
+  {
+    "input": "<HI> [MODE:ADVISOR] [STAGE:USER_MOVE] [SITUATION:BLUNDER] EVAL:-3.8 HIST:d4 Nf6 c4 g6 Nc3 Bg7 e4 d6 Nf3 O-O Be2 e5 O-O Nc6 d5 Ne7 Ne1 Nd7 Be3 f5 f3 f4 Bf2 g5 b4 Nf6 c5 Ng6",
+    "target": "<START> गंभीर सामरिक चूक। आपने अपने वज़ीर को बिना किसी सुरक्षा के दुश्मन के हाथी के सामने छोड़ दिया है। <END>"
+  },
+  {
+    "input": "<EN> [MODE:ADVISOR] [STAGE:USER_MOVE] [SITUATION:CHECK] EVAL:+0.5 HIST:e4 c5 Nf3 Nc6 d4 cxd4 Nxd4 g6 Nc3 Bg7 Be3 Nf6 Bc4 Qa5 O-O O-O Bb3 d6 h3 Bd7 f4 Nxd4 Bxd4 Bc6 Qd3 Rad8",
+    "target": "<START> Immediate threat! Your king is exposed to a direct checkmate vector. Resolve this attack before planning forward moves. <END>"
+  },
+  {
+    "input": "<HI> [MODE:ADVISOR] [STAGE:USER_MOVE] [SITUATION:CHECK] EVAL:-0.3 HIST:e4 e5 Nf3 Nc6 Bc4 Bc5 O-O Nf6 d3 d6 c3 a6 Bb3 Ba7 Re1 O-O h3 h6 Nbd2 Re8 Nf1 Be6 Ng3 Bxb3",
+    "target": "<START> राजा पर सीधा हमला! अपनी सुरक्षा को मजबूत करने के लिए राजा को तुरंत सुरक्षित स्थान पर ले जाएं। <END>"
+  },
+  {
+    "input": "<EN> [MODE:ADVISOR] [STAGE:USER_MOVE] [SITUATION:CAPTURE_FAVORABLE] EVAL:+3.2 HIST:d4 d5 c4 e6 Nf3 Nf6 Nc3 Be7 Bg5 O-O e3 h6 Bh4 b6 cxd5 Nxd5 Bxe7 Qxe7 Nxd5 exd5 Rc1 Be6 Qa4 c5 Qa3 Rc8",
+    "target": "<START> Brilliant strategic exchange! You trade a passive bishop for a highly active knight and open up the critical c-file. <END>"
+  },
+  {
+    "input": "<HI> [MODE:ADVISOR] [STAGE:USER_MOVE] [SITUATION:CAPTURE_FAVORABLE] EVAL:+2.8 HIST:e4 e5 Nf3 Nc6 Bb5 Nf6 d3 Bc5 Bxc6 dxc6 O-O Qe7 h3 Nd7 c3 O-O d4 Bd6 Re1 c5 d5 c4 Nbd2 b5",
+    "target": "<START> बेहतरीन चाल! आपने दुश्मन का एक बड़ा मोहरा मारकर खेल पर अपना पूरा नियंत्रण बना लिया है। <END>"
+  },
+  {
+    "input": "<EN> [MODE:ADVISOR] [STAGE:USER_MOVE] [SITUATION:NORMAL] EVAL:+0.2 HIST:e4 e5 Nf3 Nc6 Bb5 a6 Ba4 Nf6 O-O Be7 Re1 b5 Bb3 d6 c3 O-O h3 Nb8 d4 Nbd7 Nbd2 Bb7 Bc2 Re8",
+    "target": "<START> Solid defensive setup. You are maintaining an active pawn chain while preventing tactical forks in the center squares. <END>"
+  },
+  {
+    "input": "<HI> [MODE:ADVISOR] [STAGE:USER_MOVE] [SITUATION:NORMAL] EVAL:+0.1 HIST:d4 d5 c4 e6 Nc3 Nf6 cxd5 exd5 Bg5 c6 e3 Bf5 Qf3 Bg6 Bxf6 Qxf6 Qxf6 gxf6 Nf3 Nd7 Nh4 Be7 Be2 O-O-O",
+    "target": "<START> एक संतुलित और सुरक्षित चाल। आप अपने मोहरों को सुरक्षित रखकर खेल को एंडगेम की तरफ ले जा रहे हैं। <END>"
+  },
+  {
+    "input": "<EN> [MODE:ADVISOR] [STAGE:USER_MOVE] [SITUATION:CAPTURE_SACRIFICE] EVAL:+2.1 HIST:e4 e5 Nf3 Nc6 Bc4 Bc5 b4 Bxb4 c3 Ba5 d4 exd4 O-O d6 Qb3 Qd7 cxd4 Bb6 Bb5 a6 Ba4 Ba7 Qd1 b5",
+    "target": "<START> Outstanding tactical operation. Giving up the exchange completely shatters their central control and exposes the enemy queen. <END>"
+  },
+  {
+    "input": "<HI> [MODE:ADVISOR] [STAGE:USER_MOVE] [SITUATION:CAPTURE_SACRIFICE] EVAL:+1.9 HIST:d4 Nf6 c4 e6 Nf3 b6 g3 Ba6 b3 Bb4+ Bd2 Be7 Bg2 c6 Bc3 d5 Ne5 Nfd7 Nxd7 Nxd7 Nd2 O-O O-O Rc8",
+    "target": "<START> एक गहरा और सोचा-समझा बलिदान! यह चाल दुश्मन के राजा के सुरक्षा कवच को पूरी तरह से तोड़ देगी। <END>"
+  },
+  {
+    "input": "<EN> [MODE:ADVISOR] [STAGE:USER_MOVE] [SITUATION:PROMOTION] EVAL:+5.4 HIST:e4 c5 Nf3 d6 d4 cxd4 Nxd4 Nf6 Nc3 a6 Be3 e5 Nb3 Be6 f3 h5 Nd5 Bxd5 exd5 Nbd7 Qd2 g6 Be2 Bg7 O-O O-O c4 b6",
+    "target": "<START> Strategic milestone! Your passed pawn is advanced cleanly and is now ready to promote into a decisive secondary queen. <END>"
+  },
+  {
+    "input": "<HI> [MODE:ADVISOR] [STAGE:USER_MOVE] [SITUATION:PROMOTION] EVAL:+4.8 HIST:d4 d5 c4 e6 Nc3 Nf6 Nf3 Be7 Bf4 O-O e3 c5 dxc5 Bxc5 a3 Nc6 Qc2 Qa5 Rd1 Be7 Nd2 e5 Bg5 d4 Nb3 Qd8",
+    "target": "<START> शानदार प्रगति! आपका प्यादा आख़िरी रैंक पर पहुँचकर वज़ीर बनने के लिए पूरी तरह से तैयार है। <END>"
+  },
+  {
+    "input": "<EN> [MODE:ADVISOR] [STAGE:USER_MOVE] [SITUATION:NORMAL] EVAL:+0.7 HIST:d4 d5 Nf3 Nf6 c4 e6 Nc3 Be7 Bg5 O-O e3 h6 Bh4 b6 Rc1 Bb7 cxd5 exd5 Bd3 Nbd7 O-O",
+    "target": "<START> Nice improving move. Your pieces are coordinating well, and your position remains flexible for the upcoming middlegame. <END>"
+  },
+  {
+    "input": "<HI> [MODE:ADVISOR] [STAGE:USER_MOVE] [SITUATION:NORMAL] EVAL:+0.5 HIST:e4 c5 Nf3 Nc6 d4 cxd4 Nxd4 g6 Nc3 Bg7 Be3 Nf6 Bc4 O-O O-O d6 h3 Bd7 Re1 Rc8",
+    "target": "<START> अच्छी स्थिति बन रही है। आपके सभी मोहरे सक्रिय हैं और केंद्र पर आपका नियंत्रण मजबूत हो रहा है। <END>"
+  },
+  {
+    "input": "<EN> [MODE:ADVISOR] [STAGE:USER_MOVE] [SITUATION:CAPTURE_FAVORABLE] EVAL:+2.9 HIST:e4 e5 Nf3 Nc6 Bb5 a6 Bxc6 dxc6 O-O Bd6 d4 exd4 Qxd4 Nf6 e5",
+    "target": "<START> Great exchange! You removed an important defender and gained a lasting positional advantage. <END>"
+  },
+  {
+    "input": "<HI> [MODE:ADVISOR] [STAGE:USER_MOVE] [SITUATION:CAPTURE_FAVORABLE] EVAL:+3.1 HIST:d4 Nf6 c4 g6 Nc3 Bg7 e4 d6 Nf3 O-O Be2 e5 O-O Nc6 d5 Ne7 Nd2 Ne8",
+    "target": "<START> शानदार अदला-बदली! आपने मजबूत मोहरा हटाकर अपने लिए बेहतर स्थिति बना ली है। <END>"
+  },
+  {
+    "input": "<EN> [MODE:ADVISOR] [STAGE:USER_MOVE] [SITUATION:CASTLING] EVAL:+0.3 HIST:e4 e5 Nf3 Nc6 Bc4 Bc5 d3 Nf6 Nc3 d6 Be3 Bb6 Qd2 O-O",
+    "target": "<START> Smart decision. Castling keeps your king safe while bringing the rook into active play. <END>"
+  },
+  {
+    "input": "<HI> [MODE:ADVISOR] [STAGE:USER_MOVE] [SITUATION:CHECK] EVAL:-1.1 HIST:e4 e5 Nf3 Nc6 Bc4 Nf6 Ng5 d5 exd5 Na5 Bb5+ c6 dxc6 bxc6 Be2 h6",
+    "target": "<START> सावधान! आपके राजा पर सीधा खतरा है। पहले इस हमले का सुरक्षित जवाब दें, फिर आगे की योजना बनाएं। <END>"
+  },
+  {
+    "input": "<EN> [MODE:ADVISOR] [STAGE:USER_MOVE] [SITUATION:BLUNDER] EVAL:-3.5 HIST:d4 d5 c4 e6 Nc3 Nf6 Bg5 Be7 e3 O-O Nf3 h6 Bh4 b6 cxd5 exd5 Bd3 Bb7 O-O Nbd7",
+    "target": "<START> Costly oversight. This move leaves a key piece vulnerable and gives your opponent a strong tactical opportunity. <END>"
+  },
+  {
+    "input": "<HI> [MODE:ADVISOR] [STAGE:USER_MOVE] [SITUATION:CAPTURE_SACRIFICE] EVAL:+2.2 HIST:e4 c5 Nf3 d6 d4 cxd4 Nxd4 Nf6 Nc3 Nc6 Bg5 e6 Qd2 Be7 O-O-O O-O",
+    "target": "<START> बेहतरीन सामरिक विचार! यह बलिदान आपकी आक्रमण की संभावनाओं को काफी बढ़ा सकता है। <END>"
+  },
+  {
+    "input": "<EN> [MODE:ADVISOR] [STAGE:USER_MOVE] [SITUATION:PROMOTION] EVAL:+6.1 HIST:d4 Nf6 c4 e6 Nc3 Bb4 e3 O-O Bd3 d5 Nf3 c5 O-O Nc6 a3 Bxc3 bxc3 dxc4 Bxc4",
+    "target": "<START> You're very close to converting this advantage. Advancing the passed pawn carefully should lead to a winning promotion. <END>"
+  },
+  {
+    "input": "<HI> [MODE:ADVISOR] [STAGE:USER_MOVE] [SITUATION:PROMOTION] EVAL:+5.2 HIST:e4 e5 Nf3 Nc6 Bb5 a6 Ba4 Nf6 O-O Be7 Re1 b5 Bb3 d6 c3 O-O d4 Bg4",
+    "target": "<START> आपका पास्ड प्यादा जीत की सबसे बड़ी ताकत बन चुका है। सही समय पर उसे आगे बढ़ाकर वज़ीर बनाया जा सकता है। <END>"
+  }
+]

@@ -1,31 +1,41 @@
+import * as fs from 'fs';
+
 export class ChessAITokenizer {
-    // immutable control tags that guide the ai;s persona and language
-    private specialTokens : string[] = [
-        '<START>', '<END>', '<PAD>',
+    // Immutable control tags that guide the AI's persona, language, and tactical awareness
+    private specialTokens: string[] = [
+        '<START>', '<END>', '<PAD>', '<UNK>',
         '<EN>', '<HI>',
-        '[MODE:OPPONENT]', '[MODE:ADVISOR]', '[MODE:CHATBOT]',
-        '[STAGE:USER_MOVE]','[STAGE:AI_PONDER]','[STAGE:AI_MOVE]','[STAGE:STARTUP]'
+        '[MODE:OPPONENT]', '[MODE:ADVISOR]', '[MODE:CHATBOT]', '[MODE:TEACHER]',
+        '[STAGE:USER_MOVE]', '[STAGE:AI_PONDER]', '[STAGE:AI_MOVE]', '[STAGE:STARTUP]',
+        '[SITUATION:BLUNDER]', '[SITUATION:CHECK]', '[SITUATION:NORMAL]',
+        '[SITUATION:GREETING]', '[SITUATION:IDENTITY]', '[SITUATION:PUZZLE_HINT]',
+        '[SITUATION:CAPTURE_FAVORABLE]', '[SITUATION:CAPTURE_EQUAL]', '[SITUATION:CAPTURE_SACRIFICE]',
+        '[SITUATION:CASTLING]', '[SITUATION:EN_PASSANT]', '[SITUATION:PROMOTION]'
     ];
 
     public wordToId: Record<string, number> = {};
     public idToWord: Record<number, string> = {};
     private nextId: number = 0;
 
-    constructor(){
+    constructor() {
         this.initVocabulary();
     }
 
-    // Initializes with the base vocabulary with the static controal tags  
-    // every single structural charcter that can appear in the chess FEN or move notation
-    private initVocabulary(): void{
-        // Register Speical tokens 
-        this.specialTokens.forEach(token =>{
-            this.wordToId[token] = this.nextId;
-            this.idToWord[this.nextId] = token;
-            this.nextId++;
+    /**
+     * Initializes base vocabulary with static control tags and every valid
+     * chess FEN, algebraic notation, and formatting character.
+     */
+    private initVocabulary(): void {
+        // Register Special tokens
+        this.specialTokens.forEach(token => {
+            if (!(token in this.wordToId)) {
+                this.wordToId[token] = this.nextId;
+                this.idToWord[this.nextId] = token;
+                this.nextId++;
+            }
         });
 
-        // Register every single vaild chess FEN and algebraic notation character
+        // Register every single valid chess FEN and algebraic notation character
         const baseChessChars = 'abcdefgh12345678RNBQKPrnbqkp/ -+x#=0123456789:.[]_'.split('');
         baseChessChars.forEach(char => {
             if (!(char in this.wordToId)) {
@@ -35,13 +45,14 @@ export class ChessAITokenizer {
             }
         });
     }
-    
-    // Reads an entire array of raw target commentary sententaces ( Hindi , english, etc.)
-    // and expands the dictionary vocabulary dynamically.
 
-    public fitOnText(textArray: string[]): void{
+    /**
+     * Reads an entire array of raw target commentary sentences (Hindi, English, etc.)
+     * and expands the dictionary vocabulary dynamically.
+     */
+    public fitOnText(textArray: string[]): void {
         textArray.forEach(sentence => {
-            // Split text by space, but keep brackets and tags groundup cleanly
+            // Split text by space, but keep brackets and tags grouped cleanly
             const tokens = sentence.split(/(\s+)/).filter(t => t.trim().length > 0);
             tokens.forEach(token => {
                 if (!(token in this.wordToId)) {
@@ -53,51 +64,68 @@ export class ChessAITokenizer {
         });
     }
 
-    // Converts a descriptive chess state prompt into a fixed length mathematical array of numbers
-    public encode(inputString: string, maxLength: number = 150): number[] {
+    /**
+     * Converts a descriptive chess state prompt into a fixed-length numerical matrix.
+     * Default maxLength scaled to 384 to support deep analytical FEN explanations.
+     */
+    public encode(inputString: string, maxLength: number = 384): number[] {
         const encodeTokens: number[] = [];
 
-        // Regex splits string by white spaces, structural control brackets []. and tags <>
+        // Regex splits string by white spaces, structural control brackets [], and tags <>
         const chunks = inputString.split(/(\s+|\[.*?\]|<.*?>)/).filter(c => c && c.trim().length > 0);
 
-        chunks.forEach(chunk =>{
-            if(chunk in this.wordToId){
+        chunks.forEach(chunk => {
+            if (chunk in this.wordToId) {
                 encodeTokens.push(this.wordToId[chunk]);
             } else {
-                // character fallback falllback : if a word ( liek a raw FEN) isn't in our disctionary 
-                // serialize it down its individual strings components.
-                for ( const char of chunk){
-                    if ( char in this.wordToId){
+                // Character fallback: if a word (like a raw FEN) isn't in our dictionary,
+                // serialize it down into its individual character components.
+                for (const char of chunk) {
+                    if (char in this.wordToId) {
                         encodeTokens.push(this.wordToId[char]);
+                    } else if ('<UNK>' in this.wordToId) {
+                        encodeTokens.push(this.wordToId['<UNK>']);
                     }
                 }
             }
         });
 
         // Padding loop: TensorFlow requires uniform sequence arrays.
-        // we pad the tail with our explicit <PAD> token id (0) if the input is too short.
-        while(encodeTokens.length < maxLength){
-            encodeTokens.push(this.wordToId['<PAD>']);
+        // We pad the tail with our explicit <PAD> token id (0) if the input is too short.
+        const padId = this.wordToId['<PAD>'] !== undefined ? this.wordToId['<PAD>'] : 0;
+        while (encodeTokens.length < maxLength) {
+            encodeTokens.push(padId);
         }
         return encodeTokens.slice(0, maxLength);
-    } 
-
-    // turns the numerical arrays gernerated by the neural network back into natural language sentences 
-    public decode(tokenIds : number[]) : string {
-        return tokenIds.map(id => this.idToWord[id] || '')
-        //strip out organizational padding and layout tokens from final output string 
-        .filter(word => !['<PAD>', '<START>', '<END>'].includes(word))
-        .join(' ')
-        // Regex cleans up formatting spaces around chess boards, notation, and hyphens 
-        .replace(/\s+(?=[a-z0-9/_\-\].:])/gi, "")
-        .trim();
     }
 
-    // Gets total number of unique words/characters registered in the AI's brain
+    /**
+     * Turns numerical arrays generated by the neural network back into natural language.
+     */
+    public decode(tokenIds: number[]): string {
+        const words: string[] = [];
 
+        for (const id of tokenIds) {
+            const word = this.idToWord[id];
+            // Stop decoding immediately if the network outputs the sentence termination tag
+            if (word === '<END>') break;
+            // Strip out organizational padding and layout tokens from final output string
+            if (!word || ['<PAD>', '<START>', '<UNK>'].includes(word)) continue;
+            words.push(word);
+        }
+
+        return words
+            .join(' ')
+            // Regex cleans up formatting spaces around chess boards, notation, and punctuation
+            .replace(/\s+(?=[a-z0-9/_\-\].:!?])/gi, "")
+            .trim();
+    }
+
+    /**
+     * Dynamic getter: Uses Object.keys so that when chat.ts reloads vocab.json from disk,
+     * the vocabulary size is always 100% accurate!
+     */
     public get vocabSize(): number {
-        return this.nextId;
+        return Object.keys(this.wordToId).length;
     }
 }
-
-
