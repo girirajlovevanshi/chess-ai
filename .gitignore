@@ -1,0 +1,16 @@
+# Node dependencies
+node_modules/
+
+# TypeScript compiled output
+dist/
+
+# Generated Datasets (Users should generate their own)
+training_data.json
+
+# OS generated files
+.DS_Store
+
+# Optional: We will upload model_output later via GitHub Releases, 
+# but for now, we keep it out of the main code branch.
+model_output/node_modules/
+node_modules/

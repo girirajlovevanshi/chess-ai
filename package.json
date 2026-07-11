@@ -1,0 +1,33 @@
+{
+  "name": "chess-ai",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "generate": "tsc && node dist/dataset.js",
+    "train": "tsc && node dist/train.js",
+    "chat": "tsc && node dist/chat.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/girirajlovevanshi/chess-ai.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/girirajlovevanshi/chess-ai/issues"
+  },
+  "homepage": "https://github.com/girirajlovevanshi/chess-ai#readme",
+  "devDependencies": {
+    "@types/node": "^26.1.1",
+    "typescript": "^7.0.2"
+  },
+  "dependencies": {
+    "@tensorflow/tfjs": "^4.22.0",
+    "chess.js": "^1.4.0",
+    "stockfish": "^18.0.8"
+  }
+}
